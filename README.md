@@ -81,7 +81,7 @@ Example: `docker push myDockerID/myservice:1`
 
 ### Change the image in the deployment file
 
-https://github.com/charroux/lsi1/blob/main/deployment.yml
+https://github.com/charroux/miageGR2/blob/main/deployment.yml
 
 ### Deploy the app in Minikube
 ```
