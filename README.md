@@ -1,5 +1,12 @@
 # miageGR1
 
+Start Docker.
+
+Start the Kubernetes cluster:
+```
+minikube start --cpus=2 --memory=5000 --driver=docker
+```
+
 ## Appropriation
 
 Change the code.
@@ -86,6 +93,55 @@ https://github.com/charroux/miageGR2/blob/main/deployment.yml
 ### Deploy the app in Minikube
 ```
 kubectl apply -f deployement.yml
+```
+
+
+## Install Istio
+https://istio.io/latest/docs/setup/getting-started/
+
+Select a release and download it (here the version 1.19)
+
+```
+cd istio-1.19.0
+cd bin    
+istioctl install --set profile=demo -y
+cd ..   
+```
+Enable auto-injection of the Istio side-cars when the pods are started:
+```
+kubectl label namespace default istio-injection=enabled
+```
+Install the Istio addons (Kiali, Prometheus, Jaeger, Grafana):
+```
+kubectl apply -f samples/addons
+```
+## 
+Enable auto-injection of the Istio side-cars when the pods are started:
+```
+kubectl label namespace default istio-injection=enabled
+```
+
+Configure Docker so that it uses the Kubernetes cluster:
+```
+minikube docker-env
+eval $(minikube -p minikube docker-env)
+eval $(minikube docker-env)  
+```
+
+Check the route of the microservice in the deployment fine (see Virtual Service):
+
+https://github.com/charroux/miageGR2/blob/main/deployment.yml
+
+Apply again the deployment:
+
+Get an access to the gateway:
+```
+kubectl -n istio-system port-forward deployment/istio-ingressgateway 31380:8080
+```
+
+Test in your Web browser:
+```
+http://localhost:31380/miagegr2/cars
 ```
 
 ## Launch a workflow when the code is updated
