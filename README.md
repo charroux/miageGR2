@@ -133,6 +133,9 @@ Check the route of the microservice in the deployment fine (see Virtual Service)
 https://github.com/charroux/miageGR2/blob/main/deployment.yml
 
 Apply again the deployment:
+```
+kubectl apply -f deployment.yml
+```
 
 Get an access to the gateway:
 ```
