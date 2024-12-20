@@ -147,6 +147,31 @@ Test in your Web browser:
 http://localhost:31380/miagegr2/cars
 ```
 
+## Service mesh is provided by Istio
+
+## Monotoring
+### Display the Kiali dashboard
+Kiali is a console for Istio service mesh.
+```
+kubectl -n istio-system port-forward deployment/kiali 20001:20001
+```
+Launch the console: http://localhost:20001/
+
+
+### Monitoring with Graphana
+```
+kubectl -n istio-system port-forward deployment/grafana 3000:3000
+```
+http://localhost:3000/
+
+
+### Monitoring with Jaeger
+```
+kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686:16686
+```
+Launch the console: http://localhost:16686/
+
+
 ## Launch a workflow when the code is updated
 
 Create a new branch:
